@@ -24,9 +24,7 @@ const transactionsReducer = (state: TransactionsState, action: Action) => {
 
       return {
         ...state,
-        transactions: R.reject(R.where({ id: R.equals(idToDelete) }))(
-          state.transactions
-        )
+        transactions: R.reject(R.propEq('id', idToDelete))(state.transactions)
       };
     case ADD_TRANSACTION:
       return {
