@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useTransactionsDispatch } from './context/transactions-context';
+import { useTransactionsDispatch } from '../context/transactions-context';
 
 interface Props {}
 
 const AddTransaction: React.FC<Props> = () => {
   const [text, setText] = useState('');
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
 
   const dispatch = useTransactionsDispatch();
 
@@ -15,10 +15,12 @@ const AddTransaction: React.FC<Props> = () => {
     const newTransaction = {
       id: Math.floor(Math.random() * 1000000),
       text,
-      amount
+      amount: +amount
     };
 
     dispatch({ type: 'ADD_TRANSACTION', payload: newTransaction });
+    setText('');
+    setAmount('');
   };
 
   return (
@@ -44,7 +46,7 @@ const AddTransaction: React.FC<Props> = () => {
           <input
             type="number"
             value={amount}
-            onChange={e => setAmount(+e.target.value)}
+            onChange={e => setAmount(e.target.value)}
             placeholder="Enter amount..."
           />
         </div>

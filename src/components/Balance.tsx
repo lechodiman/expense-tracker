@@ -1,13 +1,14 @@
 import React from 'react';
-import { useTransactionsState } from './context/transactions-context';
+import { useTransactionsState } from '../context/transactions-context';
+import * as R from 'ramda';
 
 interface Props {}
 
 const Balance: React.FC<Props> = () => {
   const { transactions } = useTransactionsState();
 
-  const amounts = transactions.map(transaction => transaction.amount);
-  const total = amounts.reduce((acc, amount) => (acc += amount), 0).toFixed(2);
+  const amounts = transactions.map(R.prop('amount'));
+  const total = R.sum(amounts).toFixed(2);
 
   return (
     <>

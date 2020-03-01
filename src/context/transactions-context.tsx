@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useContext } from 'react';
+import * as R from 'ramda';
 import {
   DELETE_TRANSACTION,
   TransactionsState,
@@ -19,16 +20,18 @@ const TransactionsDispatchContext = createContext<Dispatch | undefined>(
 const transactionsReducer = (state: TransactionsState, action: Action) => {
   switch (action.type) {
     case DELETE_TRANSACTION:
+      const { id: idToDelete } = action.payload;
+
       return {
         ...state,
-        transactions: state.transactions.filter(
-          transaction => transaction.id !== action.payload.id
+        transactions: R.reject(R.where({ id: R.equals(idToDelete) }))(
+          state.transactions
         )
       };
     case ADD_TRANSACTION:
       return {
         ...state,
-        transactions: [...state.transactions, action.payload]
+        transactions: R.append(action.payload, state.transactions)
       };
     default:
       return state;
@@ -53,7 +56,7 @@ const TransactionsProvider: React.FC = ({ children }) => {
 
 const useTransactionsState = () => {
   const context = useContext(TransactionsStateContext);
-  if (context === undefined) {
+  if (R.isNil(context)) {
     throw new Error(
       'useTransactionsContext must be used within a TransactionsProvider'
     );
@@ -63,7 +66,7 @@ const useTransactionsState = () => {
 };
 const useTransactionsDispatch = () => {
   const context = useContext(TransactionsDispatchContext);
-  if (context === undefined) {
+  if (R.isNil(context)) {
     throw new Error(
       'useTransactionsContext must be used within a TransactionsProvider'
     );

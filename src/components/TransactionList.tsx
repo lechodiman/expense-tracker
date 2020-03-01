@@ -1,6 +1,6 @@
 import React from 'react';
 import Transaction from './Transaction';
-import { useTransactionsState } from './context/transactions-context';
+import { useTransactionsState } from '../context/transactions-context';
 
 interface Props {}
 

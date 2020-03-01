@@ -1,6 +1,6 @@
 import React from 'react';
-import { ITransaction } from './types';
-import { useTransactionsDispatch } from './context/transactions-context';
+import { ITransaction } from '../types';
+import { useTransactionsDispatch } from '../context/transactions-context';
 
 interface Props {
   transaction: ITransaction;

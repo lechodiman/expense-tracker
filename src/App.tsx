@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Balance from './Balance';
-import IncomeExpenses from './History';
-import Header from './Header';
-import TransactionList from './TransactionList';
-import AddTransaction from './AddTransaction';
+import Balance from './components/Balance';
+import IncomeExpenses from './components/History';
+import Header from './components/Header';
+import TransactionList from './components/TransactionList';
+import AddTransaction from './components/AddTransaction';
 import { TransactionsProvider } from './context/transactions-context';
 
 const App: React.FC = () => {

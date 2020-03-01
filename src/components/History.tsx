@@ -1,26 +1,22 @@
 import React from 'react';
-import { useTransactionsState } from './context/transactions-context';
+import { useTransactionsState } from '../context/transactions-context';
+import * as R from 'ramda';
 
 interface Props {}
 
-const sumReducer = (acc: number, amount: number) => (acc += amount);
 const positive = (n: number) => n > 0;
 const negative = (n: number) => n < 0;
 
 const IncomeExpenses: React.FC<Props> = () => {
   const { transactions } = useTransactionsState();
 
-  const amounts = transactions.map(transaction => transaction.amount);
+  const amounts = transactions.map(R.prop('amount'));
 
-  const totalIncome = amounts
-    .filter(positive)
-    .reduce(sumReducer, 0)
-    .toFixed(2);
+  const round = (n: number) => n.toFixed(2);
+  const aproximateSum = R.compose(round, R.sum);
 
-  const totalExpenses = amounts
-    .filter(negative)
-    .reduce(sumReducer, 0)
-    .toFixed(2);
+  const totalIncome = aproximateSum(R.filter(positive, amounts));
+  const totalExpenses = aproximateSum(R.filter(negative, amounts));
 
   return (
     <div className="inc-exp-container">
