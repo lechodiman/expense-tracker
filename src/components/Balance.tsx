@@ -7,7 +7,7 @@ interface Props {}
 const Balance: React.FC<Props> = () => {
   const { transactions } = useTransactionsState();
 
-  const amounts = transactions.map(R.prop('amount'));
+  const amounts = R.pluck('amount', transactions);
   const total = R.sum(amounts).toFixed(2);
 
   return (

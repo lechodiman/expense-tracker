@@ -4,19 +4,25 @@ import * as R from 'ramda';
 
 interface Props {}
 
-const positive = (n: number) => n > 0;
-const negative = (n: number) => n < 0;
+const isPositive = (n: number) => n > 0;
+const isNegative = (n: number) => n < 0;
+
+const round = (decimalPlace: number, n: number) => n.toFixed(decimalPlace);
+const cRound = R.curry(round);
 
 const IncomeExpenses: React.FC<Props> = () => {
   const { transactions } = useTransactionsState();
 
-  const amounts = transactions.map(R.prop('amount'));
+  const amounts = R.pluck('amount', transactions);
 
-  const round = (n: number) => n.toFixed(2);
-  const aproximateSum = R.compose(round, R.sum);
+  // @ts-ignore
+  const sumOnly = R.compose(cRound(2), R.sum, R.filter(R.__, amounts));
 
-  const totalIncome = aproximateSum(R.filter(positive, amounts));
-  const totalExpenses = aproximateSum(R.filter(negative, amounts));
+  // @ts-ignore
+  const totalIncome = sumOnly(isPositive);
+
+  // @ts-ignore
+  const totalExpenses = sumOnly(isNegative);
 
   return (
     <div className="inc-exp-container">
