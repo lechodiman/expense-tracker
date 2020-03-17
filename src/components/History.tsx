@@ -1,14 +1,9 @@
 import React from 'react';
 import { useTransactionsState } from '../context/transactions-context';
 import * as R from 'ramda';
+import { round, isPositive, isNegative } from '../utils/functions';
 
 interface Props {}
-
-const isPositive = (n: number) => n > 0;
-const isNegative = (n: number) => n < 0;
-
-const round = (decimalPlace: number, n: number) => n.toFixed(decimalPlace);
-const cRound = R.curry(round);
 
 const IncomeExpenses: React.FC<Props> = () => {
   const { transactions } = useTransactionsState();
@@ -16,7 +11,7 @@ const IncomeExpenses: React.FC<Props> = () => {
   const amounts = R.pluck('amount', transactions);
 
   // @ts-ignore
-  const sumOnly = R.compose(cRound(2), R.sum, R.filter(R.__, amounts));
+  const sumOnly = R.compose(round(2), R.sum, R.filter(R.__, amounts));
 
   // @ts-ignore
   const totalIncome = sumOnly(isPositive);

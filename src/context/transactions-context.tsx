@@ -4,7 +4,8 @@ import {
   DELETE_TRANSACTION,
   TransactionsState,
   Action,
-  ADD_TRANSACTION
+  ADD_TRANSACTION,
+  UPDATE_TRANSACTION
 } from './types';
 
 type Dispatch = (action: Action) => void;
@@ -21,16 +22,31 @@ const transactionsReducer = (state: TransactionsState, action: Action) => {
   switch (action.type) {
     case DELETE_TRANSACTION:
       const { id: idToDelete } = action.payload;
-
-      return {
-        ...state,
-        transactions: R.reject(R.propEq('id', idToDelete))(state.transactions)
-      };
+      return R.evolve(
+        {
+          transactions: R.reject(R.propEq('id', idToDelete))
+        },
+        state
+      );
     case ADD_TRANSACTION:
-      return {
-        ...state,
-        transactions: R.append(action.payload, state.transactions)
-      };
+      return R.evolve(
+        {
+          transactions: R.append(action.payload)
+        },
+        state
+      );
+    case UPDATE_TRANSACTION:
+      const { id } = action.payload;
+      const transactionIndex = R.findIndex(
+        R.propEq('id', id),
+        state.transactions
+      );
+      return R.evolve(
+        {
+          transactions: R.update(transactionIndex, action.payload.transaction)
+        },
+        state
+      );
     default:
       return state;
   }
