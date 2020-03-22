@@ -8,9 +8,8 @@ test('adds a positive transaction', async () => {
   const { TransactionsProvider } = transactionContext;
   const mockDispatch = jest.fn();
 
-  // @ts-ignore
-  transactionContext.useTransactionsDispatch = jest
-    .fn()
+  const mockUseTransactionsDispatch = jest
+    .spyOn(transactionContext, 'useTransactionsDispatch')
     .mockReturnValue(mockDispatch);
 
   const { getByText, getByLabelText } = render(
@@ -28,6 +27,7 @@ test('adds a positive transaction', async () => {
 
   fireEvent.click(submitButton);
 
+  expect(mockUseTransactionsDispatch).toHaveBeenCalled();
   expect(mockDispatch).toHaveBeenCalledTimes(1);
   expect(mockDispatch).toHaveBeenCalledWith({
     type: 'ADD_TRANSACTION',

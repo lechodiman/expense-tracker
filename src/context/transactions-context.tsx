@@ -54,7 +54,7 @@ const transactionsReducer = (state: TransactionsState, action: Action) => {
 };
 
 interface TransactionsProviderProps {
-  transactions: ITransaction[];
+  transactions?: ITransaction[];
 }
 
 const TransactionsProvider: React.FC<TransactionsProviderProps> = ({
