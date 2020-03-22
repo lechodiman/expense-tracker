@@ -14,10 +14,10 @@ const IncomeExpenses: React.FC<Props> = () => {
   const sumOnly = R.compose(round(2), R.sum, R.filter(R.__, amounts));
 
   // @ts-ignore
-  const totalIncome = sumOnly(isPositive);
+  const totalIncome: number = sumOnly(isPositive);
 
   // @ts-ignore
-  const totalExpenses = sumOnly(isNegative);
+  const totalExpenses: number = sumOnly(isNegative);
 
   return (
     <div className="inc-exp-container">

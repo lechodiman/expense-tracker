@@ -11,7 +11,7 @@ const Balance: React.FC<Props> = () => {
   // @ts-ignore
   const sumTotalAmount = R.pipe(R.pluck('amount'), R.sum, round(2));
 
-  const total = sumTotalAmount(transactions);
+  const total: number = sumTotalAmount(transactions);
 
   return (
     <>

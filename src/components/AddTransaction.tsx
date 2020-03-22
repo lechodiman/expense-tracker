@@ -31,6 +31,7 @@ const AddTransaction: React.FC<Props> = () => {
           <label htmlFor="text">Text</label>
           <input
             type="text"
+            id="text"
             name="text"
             value={text}
             onChange={e => setText(e.target.value)}
@@ -45,12 +46,16 @@ const AddTransaction: React.FC<Props> = () => {
 
           <input
             type="number"
+            name="amount"
+            id="amount"
             value={amount}
             onChange={e => setAmount(e.target.value)}
             placeholder="Enter amount..."
           />
         </div>
-        <button className="btn">Add transaction</button>
+        <button type="submit" className="btn">
+          Add transaction
+        </button>
       </form>
     </>
   );
