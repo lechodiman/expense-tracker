@@ -16,7 +16,7 @@ const Balance: React.FC<Props> = () => {
   return (
     <>
       <h4>Your balance </h4>
-      <h1>${total}</h1>
+      <h1 aria-label="total">${total}</h1>
     </>
   );
 };

@@ -7,6 +7,7 @@ import {
   ADD_TRANSACTION,
   UPDATE_TRANSACTION
 } from './types';
+import { ITransaction } from '../types';
 
 type Dispatch = (action: Action) => void;
 
@@ -52,9 +53,16 @@ const transactionsReducer = (state: TransactionsState, action: Action) => {
   }
 };
 
-const TransactionsProvider: React.FC = ({ children }) => {
+interface TransactionsProviderProps {
+  transactions: ITransaction[];
+}
+
+const TransactionsProvider: React.FC<TransactionsProviderProps> = ({
+  children,
+  transactions = []
+}) => {
   const [state, dispatch] = useReducer(transactionsReducer, {
-    transactions: []
+    transactions
   });
 
   return (
