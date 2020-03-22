@@ -34,9 +34,10 @@ test('adds a positive transaction', async () => {
     payload: {
       id: expect.any(Number),
       text: 'something',
-      amount: 200
-    }
+      amount: 200,
+    },
   });
   expect(textInput).toHaveTextContent('');
   expect(amountInput).toHaveTextContent('');
+  expect(amountInput).toBeTruthy();
 });

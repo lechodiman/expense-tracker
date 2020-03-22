@@ -1,15 +1,15 @@
 import React from 'react';
-import { ITransaction } from '../types';
+import { Transaction } from '../types';
 import { useTransactionsDispatch } from '../context/transactions-context';
 
 interface Props {
-  transaction: ITransaction;
+  transaction: Transaction;
 }
 
 const Transaction: React.FC<Props> = ({ transaction }) => {
   const dispatch = useTransactionsDispatch();
 
-  const deleteTransaction = () => {
+  const deleteTransaction = (): void => {
     dispatch({ type: 'DELETE_TRANSACTION', payload: { id: transaction.id } });
   };
 

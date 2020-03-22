@@ -1,20 +1,20 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import * as transactionContext from '../../context/transactions-context';
-import { ITransaction } from '../../types';
+import { Transaction } from '../../types';
 import History from '../History';
 
 test('shows total income and expenses', async () => {
   const { TransactionsProvider } = transactionContext;
 
-  const transactions: ITransaction[] = [
+  const transactions: Transaction[] = [
     { id: 1, amount: 200, text: 'income' },
-    { id: 2, amount: -50, text: 'car' }
+    { id: 2, amount: -50, text: 'car' },
   ];
 
   const { getByLabelText } = render(
     <TransactionsProvider transactions={transactions}>
-      <History></History>
+      <History />
     </TransactionsProvider>
   );
 

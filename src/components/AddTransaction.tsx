@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { useTransactionsDispatch } from '../context/transactions-context';
 
-interface Props {}
-
-const AddTransaction: React.FC<Props> = () => {
+const AddTransaction: React.FC<{}> = () => {
   const [text, setText] = useState('');
   const [amount, setAmount] = useState('');
 
   const dispatch = useTransactionsDispatch();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
     const newTransaction = {
       id: Math.floor(Math.random() * 1000000),
       text,
-      amount: +amount
+      amount: +amount,
     };
 
     dispatch({ type: 'ADD_TRANSACTION', payload: newTransaction });
@@ -34,7 +32,7 @@ const AddTransaction: React.FC<Props> = () => {
             id="text"
             name="text"
             value={text}
-            onChange={e => setText(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
             placeholder="Enter text..."
           />
         </div>
@@ -49,7 +47,7 @@ const AddTransaction: React.FC<Props> = () => {
             name="amount"
             id="amount"
             value={amount}
-            onChange={e => setAmount(e.target.value)}
+            onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount..."
           />
         </div>

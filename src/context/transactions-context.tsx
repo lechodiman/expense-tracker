@@ -5,9 +5,9 @@ import {
   TransactionsState,
   Action,
   ADD_TRANSACTION,
-  UPDATE_TRANSACTION
+  UPDATE_TRANSACTION,
 } from './types';
-import { ITransaction } from '../types';
+import { Transaction } from '../types';
 
 type Dispatch = (action: Action) => void;
 
@@ -25,14 +25,14 @@ const transactionsReducer = (state: TransactionsState, action: Action) => {
       const { id: idToDelete } = action.payload;
       return R.evolve(
         {
-          transactions: R.reject(R.propEq('id', idToDelete))
+          transactions: R.reject(R.propEq('id', idToDelete)),
         },
         state
       );
     case ADD_TRANSACTION:
       return R.evolve(
         {
-          transactions: R.append(action.payload)
+          transactions: R.append(action.payload),
         },
         state
       );
@@ -44,7 +44,7 @@ const transactionsReducer = (state: TransactionsState, action: Action) => {
       );
       return R.evolve(
         {
-          transactions: R.update(transactionIndex, action.payload.transaction)
+          transactions: R.update(transactionIndex, action.payload.transaction),
         },
         state
       );
@@ -54,15 +54,15 @@ const transactionsReducer = (state: TransactionsState, action: Action) => {
 };
 
 interface TransactionsProviderProps {
-  transactions?: ITransaction[];
+  transactions?: Transaction[];
 }
 
 const TransactionsProvider: React.FC<TransactionsProviderProps> = ({
   children,
-  transactions = []
+  transactions = [],
 }) => {
   const [state, dispatch] = useReducer(transactionsReducer, {
-    transactions
+    transactions,
   });
 
   return (

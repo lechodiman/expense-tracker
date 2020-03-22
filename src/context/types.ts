@@ -1,4 +1,4 @@
-import { ITransaction } from '../types';
+import { Transaction } from '../types';
 
 export const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
@@ -11,16 +11,16 @@ interface DeleteTransactionAction {
 
 interface AddTransactionAction {
   type: typeof ADD_TRANSACTION;
-  payload: ITransaction;
+  payload: Transaction;
 }
 
 interface UpdateTransactionAction {
   type: typeof UPDATE_TRANSACTION;
-  payload: { id: number; transaction: ITransaction };
+  payload: { id: number; transaction: Transaction };
 }
 
 export interface TransactionsState {
-  transactions: ITransaction[];
+  transactions: Transaction[];
 }
 
 export type Action =

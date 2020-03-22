@@ -3,9 +3,7 @@ import { useTransactionsState } from '../context/transactions-context';
 import * as R from 'ramda';
 import { round, isPositive, isNegative } from '../utils/functions';
 
-interface Props {}
-
-const IncomeExpenses: React.FC<Props> = () => {
+const IncomeExpenses: React.FC<{}> = () => {
   const { transactions } = useTransactionsState();
 
   const amounts = R.pluck('amount', transactions);

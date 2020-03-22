@@ -3,9 +3,7 @@ import { useTransactionsState } from '../context/transactions-context';
 import * as R from 'ramda';
 import { round } from '../utils/functions';
 
-interface Props {}
-
-const Balance: React.FC<Props> = () => {
+const Balance: React.FC = () => {
   const { transactions } = useTransactionsState();
 
   // @ts-ignore
