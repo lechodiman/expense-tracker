@@ -6,7 +6,7 @@ interface Props {
   transaction: Transaction;
 }
 
-const Transaction: React.FC<Props> = ({ transaction }) => {
+const TransactionDetails: React.FC<Props> = ({ transaction }) => {
   const dispatch = useTransactionsDispatch();
 
   const deleteTransaction = (): void => {
@@ -28,4 +28,4 @@ const Transaction: React.FC<Props> = ({ transaction }) => {
   );
 };
 
-export default Transaction;
+export default TransactionDetails;
