@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTransactionsDispatch } from '../context/transactions-context';
+import { Transaction } from '../types';
 
 const AddTransaction: React.FC<{}> = () => {
   const [text, setText] = useState('');
@@ -10,7 +11,7 @@ const AddTransaction: React.FC<{}> = () => {
   const onSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    const newTransaction = {
+    const newTransaction: Transaction = {
       id: Math.floor(Math.random() * 1000000),
       text,
       amount: +amount,

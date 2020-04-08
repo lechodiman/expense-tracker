@@ -2,9 +2,7 @@ import React from 'react';
 import Transaction from './Transaction';
 import { useTransactionsState } from '../context/transactions-context';
 
-interface Props {}
-
-const TransactionList: React.FC<Props> = () => {
+const TransactionList: React.FC = () => {
   const { transactions } = useTransactionsState();
 
   return (
