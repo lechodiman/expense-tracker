@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import * as transactionContext from '../../context/transactions-context';
 import { Transaction } from '../../types';
 import History from '../History';
+import * as R from 'ramda';
 
 test('shows total income and expenses', async () => {
   const { TransactionsProvider } = transactionContext;
@@ -21,6 +22,18 @@ test('shows total income and expenses', async () => {
   const totalIncome = getByLabelText(/total income/i);
   const totalExpenses = getByLabelText(/total expenses/i);
 
-  expect(totalIncome).toHaveTextContent('200');
-  expect(totalExpenses).toHaveTextContent('50');
+  const expectedTotalIncome = R.pipe(
+    R.map(R.prop('amount')),
+    R.filter<number, 'array'>(R.gt(R.__, 0)),
+    R.sum
+  )(transactions);
+
+  const expectedTotalExpenses = R.pipe(
+    R.map(R.prop('amount')),
+    R.filter<number, 'array'>(R.lt(R.__, 0)),
+    R.sum
+  )(transactions);
+
+  expect(totalIncome).toHaveTextContent(`${expectedTotalIncome}`);
+  expect(totalExpenses).toHaveTextContent(`${expectedTotalExpenses}`);
 });

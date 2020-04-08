@@ -22,8 +22,10 @@ test('adds a positive transaction', async () => {
   const amountInput = getByLabelText(/amount/i);
   const submitButton = getByText(/add transaction/i);
 
-  await userEvent.type(textInput, 'something');
-  await userEvent.type(amountInput, '200');
+  const transactionName = 'something';
+  const transactionAmount = '200';
+  await userEvent.type(textInput, transactionName);
+  await userEvent.type(amountInput, transactionAmount);
 
   fireEvent.click(submitButton);
 
@@ -33,8 +35,8 @@ test('adds a positive transaction', async () => {
     type: 'ADD_TRANSACTION',
     payload: {
       id: expect.any(Number),
-      text: 'something',
-      amount: 200,
+      text: transactionName,
+      amount: parseInt(transactionAmount),
     },
   });
   expect(textInput).toHaveTextContent('');

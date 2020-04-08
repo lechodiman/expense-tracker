@@ -4,7 +4,7 @@ import * as transactionContext from '../../context/transactions-context';
 import Balance from '../Balance';
 import { Transaction } from '../../types';
 
-test('show total sum', async () => {
+test('shows total sum', async () => {
   const { TransactionsProvider } = transactionContext;
 
   const transactions: Transaction[] = [
