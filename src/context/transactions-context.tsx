@@ -77,24 +77,24 @@ const TransactionsProvider: React.FC<TransactionsProviderProps> = ({
 };
 
 const useTransactionsState = () => {
-  const context = useContext(TransactionsStateContext);
-  if (R.isNil(context)) {
+  const transactions = useContext(TransactionsStateContext);
+  if (R.isNil(transactions)) {
     throw new Error(
       'useTransactionsContext must be used within a TransactionsProvider'
     );
   }
 
-  return context;
+  return transactions;
 };
 const useTransactionsDispatch = () => {
-  const context = useContext(TransactionsDispatchContext);
-  if (R.isNil(context)) {
+  const dispatch = useContext(TransactionsDispatchContext);
+  if (R.isNil(dispatch)) {
     throw new Error(
       'useTransactionsContext must be used within a TransactionsProvider'
     );
   }
 
-  return context;
+  return dispatch;
 };
 
 export { TransactionsProvider, useTransactionsState, useTransactionsDispatch };
