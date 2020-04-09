@@ -4,15 +4,15 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
+    "@types/node": "^12.12.35",
+    "@types/react": "^16.9.33",
+    "@types/react-dom": "^16.9.6",
     "ramda": "^0.27.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-scripts": "3.4.0",
     "typescript": "^3.8.3"
   },
@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@types/ramda": "^0.26.43",
+    "@types/ramda": "^0.26.44",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
     "eslint": "^6.8.0",

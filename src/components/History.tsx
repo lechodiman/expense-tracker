@@ -1,21 +1,24 @@
 import React from 'react';
 import { useTransactionsState } from '../context/transactions-context';
 import * as R from 'ramda';
-import { round, isPositive, isNegative } from '../utils/functions';
+import { round } from '../utils/functions';
 
 const IncomeExpenses: React.FC<{}> = () => {
   const { transactions } = useTransactionsState();
 
-  const amounts = R.pluck('amount', transactions);
+  const totalIncome = R.pipe(
+    R.map(R.prop('amount')),
+    R.filter<number, 'array'>(R.gt(R.__, 0)),
+    R.sum,
+    round(2)
+  )(transactions);
 
-  // @ts-ignore
-  const sumOnly = R.compose(round(2), R.sum, R.filter(R.__, amounts));
-
-  // @ts-ignore
-  const totalIncome: number = sumOnly(isPositive);
-
-  // @ts-ignore
-  const totalExpenses: number = sumOnly(isNegative);
+  const totalExpenses = R.pipe(
+    R.map(R.prop('amount')),
+    R.filter<number, 'array'>(R.lt(R.__, 0)),
+    R.sum,
+    round(2)
+  )(transactions);
 
   return (
     <div className="inc-exp-container">
