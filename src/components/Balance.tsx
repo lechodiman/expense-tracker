@@ -1,17 +1,9 @@
 import React from 'react';
 import { useTransactionsState } from '../context/transactions-context';
-import * as R from 'ramda';
-import { round } from '../utils/functions';
-import { Transaction } from '../types';
+import { sumAllAmounts } from '../utils/functions';
 
 const Balance: React.FC = () => {
   const { transactions } = useTransactionsState();
-
-  const sumAllAmounts: (transactions: Transaction[]) => number = R.pipe(
-    R.map(R.prop('amount')),
-    R.sum,
-    round(2)
-  );
 
   const total = sumAllAmounts(transactions);
 

@@ -1,24 +1,13 @@
 import React from 'react';
 import { useTransactionsState } from '../context/transactions-context';
-import * as R from 'ramda';
-import { round } from '../utils/functions';
+import { sumTotalIncome, sumTotalExpenses } from '../utils/functions';
 
 const IncomeExpenses: React.FC<{}> = () => {
   const { transactions } = useTransactionsState();
 
-  const totalIncome = R.pipe(
-    R.map(R.prop('amount')),
-    R.filter<number, 'array'>(R.gt(R.__, 0)),
-    R.sum,
-    round(2)
-  )(transactions);
+  const totalIncome = sumTotalIncome(transactions);
 
-  const totalExpenses = R.pipe(
-    R.map(R.prop('amount')),
-    R.filter<number, 'array'>(R.lt(R.__, 0)),
-    R.sum,
-    round(2)
-  )(transactions);
+  const totalExpenses = sumTotalExpenses(transactions);
 
   return (
     <div className="inc-exp-container">
