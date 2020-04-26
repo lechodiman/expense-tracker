@@ -1,4 +1,10 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import React, {
+  useMemo,
+  useCallback,
+  createContext,
+  useReducer,
+  useContext,
+} from 'react';
 import * as R from 'ramda';
 import {
   DELETE_TRANSACTION,
@@ -9,13 +15,16 @@ import {
 } from './types';
 import { Transaction } from '../types';
 
-type Dispatch = (action: Action) => void;
-
 const TransactionsStateContext = createContext<TransactionsState | undefined>(
   undefined
 );
 
-const TransactionsDispatchContext = createContext<Dispatch | undefined>(
+interface TransactionsApi {
+  addTransaction: (transaction: Transaction) => void;
+  deleteTransaction: (id: number) => void;
+}
+
+const TransactionsApiContext = createContext<TransactionsApi | undefined>(
   undefined
 );
 
@@ -65,13 +74,35 @@ const TransactionsProvider: React.FC<TransactionsProviderProps> = ({
     transactions,
   });
 
+  const addTransaction = useCallback(
+    (transaction: Transaction) => {
+      dispatch({ type: 'ADD_TRANSACTION', payload: transaction });
+    },
+    [dispatch]
+  );
+
+  const deleteTransaction = useCallback(
+    (id: number): void => {
+      dispatch({ type: 'DELETE_TRANSACTION', payload: { id } });
+    },
+    [dispatch]
+  );
+
+  const api = useMemo(
+    () => ({
+      addTransaction,
+      deleteTransaction,
+    }),
+    [addTransaction, deleteTransaction]
+  );
+
   return (
     <TransactionsStateContext.Provider
       value={{ transactions: state.transactions }}
     >
-      <TransactionsDispatchContext.Provider value={dispatch}>
+      <TransactionsApiContext.Provider value={api}>
         {children}
-      </TransactionsDispatchContext.Provider>
+      </TransactionsApiContext.Provider>
     </TransactionsStateContext.Provider>
   );
 };
@@ -86,15 +117,15 @@ const useTransactionsState = () => {
 
   return transactions;
 };
-const useTransactionsDispatch = () => {
-  const dispatch = useContext(TransactionsDispatchContext);
-  if (R.isNil(dispatch)) {
+const useTransactionsApi = () => {
+  const context = useContext(TransactionsApiContext);
+  if (R.isNil(context)) {
     throw new Error(
       'useTransactionsContext must be used within a TransactionsProvider'
     );
   }
 
-  return dispatch;
+  return context;
 };
 
-export { TransactionsProvider, useTransactionsState, useTransactionsDispatch };
+export { TransactionsProvider, useTransactionsState, useTransactionsApi };

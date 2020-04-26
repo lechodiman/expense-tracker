@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useTransactionsDispatch } from '../context/transactions-context';
+import { useTransactionsApi } from '../context/transactions-context';
 import { Transaction } from '../types';
 
 const AddTransaction: React.FC<{}> = () => {
   const [text, setText] = useState('');
   const [amount, setAmount] = useState('');
 
-  const dispatch = useTransactionsDispatch();
+  const { addTransaction } = useTransactionsApi();
 
   const onSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
@@ -17,7 +17,7 @@ const AddTransaction: React.FC<{}> = () => {
       amount: +amount,
     };
 
-    dispatch({ type: 'ADD_TRANSACTION', payload: newTransaction });
+    addTransaction(newTransaction);
     setText('');
     setAmount('');
   };
