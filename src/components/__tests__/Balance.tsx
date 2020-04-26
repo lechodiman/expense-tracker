@@ -18,7 +18,7 @@ test('shows total sum', async () => {
     </TransactionsProvider>
   );
 
-  const total = getByLabelText(/total/i);
+  const total = getByLabelText(/total balance/i);
 
   expect(total).toHaveTextContent('150');
 });

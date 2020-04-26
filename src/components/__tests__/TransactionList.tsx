@@ -1,5 +1,5 @@
+import { fireEvent, getByText, render } from '@testing-library/react';
 import React from 'react';
-import { render, fireEvent, getByText } from '@testing-library/react';
 import * as transactionContext from '../../context/transactions-context';
 import { Transaction } from '../../types';
 import TransactionList from '../TransactionList';
