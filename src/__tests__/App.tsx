@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, fireEvent, getByText } from '@testing-library/react';
-import App from '../App';
+import { fireEvent, render, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
+import App from '../App';
 
 test('adds a new transaction to the list and it updates balance', async () => {
   const fakeTransaction = {
@@ -9,23 +9,24 @@ test('adds a new transaction to the list and it updates balance', async () => {
     amount: '200',
   };
 
-  const { container, getByLabelText } = render(<App></App>);
+  const { getByText, getByLabelText } = render(<App></App>);
 
   const textInput = getByLabelText(/text/i);
   const amountInput = getByLabelText(/amount/i);
-  const submitButton = getByText(container, /add transaction/i);
+  const submitButton = getByText(/add transaction/i);
+
+  const totalBalance = getByLabelText(/total balance/i);
+  expect(totalBalance).toHaveTextContent('0');
 
   await userEvent.type(textInput, fakeTransaction.name);
   await userEvent.type(amountInput, fakeTransaction.amount);
-
   fireEvent.click(submitButton);
 
-  const somethingExpense = getByText(container, fakeTransaction.name);
-  const totalBalance = getByLabelText(/total balance/i);
+  const somethingExpense = getByText(fakeTransaction.name);
 
   expect(somethingExpense).toBeInTheDocument();
   expect(totalBalance).toHaveTextContent(fakeTransaction.amount);
 
-  fireEvent.click(getByText(somethingExpense, /x/i));
+  fireEvent.click(within(somethingExpense).getByText(/x/i));
   expect(totalBalance).toHaveTextContent('0');
 });
