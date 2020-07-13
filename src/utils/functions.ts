@@ -26,4 +26,4 @@ export const sumTotalExpenses: (
 
 export const sumAllAmounts: (
   transactions: Transaction[]
-) => number = sumAmountsIf(R.always(true));
+) => number = sumAmountsIf(R.T);
