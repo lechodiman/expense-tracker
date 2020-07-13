@@ -52,7 +52,10 @@ const AddTransaction: React.FC<{}> = () => {
             placeholder="Enter amount..."
           />
         </div>
-        <button type="submit" className="btn">
+        <button
+          type="submit"
+          className="bg-purple-500 shadow-md text-white block text-base mt-2 mx-0 mb-6 p-3 w-full"
+        >
           Add transaction
         </button>
       </form>
