@@ -6,12 +6,11 @@ import userEvent from '@testing-library/user-event';
 
 test('adds a positive transaction', async () => {
   const { TransactionsProvider } = transactionContext;
-  const mockAddTransaction = jest.fn();
+  const mockDispatch = jest.fn();
 
-  jest.spyOn(transactionContext, 'useTransactionsApi').mockReturnValue({
-    addTransaction: mockAddTransaction,
-    deleteTransaction: jest.fn(),
-  });
+  const mockUseTransactionsDispatch = jest
+    .spyOn(transactionContext, 'useTransactionsDispatch')
+    .mockReturnValue(mockDispatch);
 
   const { getByText, getByLabelText } = render(
     <TransactionsProvider>
@@ -30,11 +29,15 @@ test('adds a positive transaction', async () => {
 
   fireEvent.click(submitButton);
 
-  expect(mockAddTransaction).toHaveBeenCalledTimes(1);
-  expect(mockAddTransaction).toHaveBeenCalledWith({
-    id: expect.any(Number),
-    text: transactionName,
-    amount: parseInt(transactionAmount),
+  expect(mockUseTransactionsDispatch).toHaveBeenCalled();
+  expect(mockDispatch).toHaveBeenCalledTimes(1);
+  expect(mockDispatch).toHaveBeenCalledWith({
+    type: 'ADD_TRANSACTION',
+    payload: {
+      id: expect.any(Number),
+      text: transactionName,
+      amount: parseInt(transactionAmount),
+    },
   });
   expect(textInput).toHaveTextContent('');
   expect(amountInput).toHaveTextContent('');

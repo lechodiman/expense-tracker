@@ -1,13 +1,17 @@
 import React from 'react';
 import { Transaction } from '../types';
-import { useTransactionsApi } from '../context/transactions-context';
+import { useTransactionsDispatch } from '../context/transactions-context';
 
 interface Props {
   transaction: Transaction;
 }
 
 const TransactionDetails: React.FC<Props> = ({ transaction }) => {
-  const { deleteTransaction } = useTransactionsApi();
+  const dispatch = useTransactionsDispatch();
+
+  const deleteTransaction = (): void => {
+    dispatch({ type: 'DELETE_TRANSACTION', payload: { id: transaction.id } });
+  };
 
   const sign = transaction.amount < 0 ? '-' : '+';
 
@@ -17,10 +21,7 @@ const TransactionDetails: React.FC<Props> = ({ transaction }) => {
       <span>
         {sign} ${Math.abs(transaction.amount)}
       </span>
-      <button
-        onClick={() => deleteTransaction(transaction.id)}
-        className="delete-btn"
-      >
+      <button onClick={deleteTransaction} className="delete-btn">
         x
       </button>
     </li>
