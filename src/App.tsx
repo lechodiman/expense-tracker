@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 import './App.css';
 import Balance from './components/Balance';
 import IncomeExpenses from './components/History';
@@ -10,12 +11,14 @@ import { TransactionsProvider } from './context/transactions-context';
 const App: React.FC = () => {
   return (
     <TransactionsProvider>
-      <Header></Header>
-      <div className="container">
-        <Balance />
-        <IncomeExpenses />
-        <TransactionList />
-        <AddTransaction />
+      <div className="flex flex-col items-center justify-center min-h-screen m-0 bg-gray-200 font-body">
+        <div className="w-10/12 mx-auto sm:w-8/12 lg:w-4/12">
+          <Header />
+          <Balance />
+          <IncomeExpenses />
+          <TransactionList />
+          <AddTransaction />
+        </div>
       </div>
     </TransactionsProvider>
   );

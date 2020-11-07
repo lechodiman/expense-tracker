@@ -7,7 +7,9 @@ const TransactionList: React.FC = () => {
 
   return (
     <>
-      <h3>History</h3>
+      <h3 className="pb-2 mt-10 text-xl font-bold border-b-2 border-gray-300">
+        History
+      </h3>
       <ul className="list">
         {transactions.map((transaction) => (
           <Transaction
