@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTransactionsDispatch } from '../context/transactions-context';
 import { Transaction } from '../types';
 
-const AddTransaction: React.FC<{}> = () => {
+const AddTransaction: React.FC = () => {
   const [text, setText] = useState('');
   const [amount, setAmount] = useState('');
 
@@ -24,10 +24,15 @@ const AddTransaction: React.FC<{}> = () => {
 
   return (
     <>
-      <h3 className="text-xl font-bold">Add new transaction</h3>
+      <h3 className="pb-2 mt-10 text-xl font-bold border-b-2 border-gray-300">
+        Add new transaction
+      </h3>
+
       <form onSubmit={onSubmit}>
         <div className="form-control">
-          <label htmlFor="text">Text</label>
+          <label htmlFor="text" className="inline-block my-3">
+            Text
+          </label>
           <input
             type="text"
             id="text"
@@ -35,10 +40,11 @@ const AddTransaction: React.FC<{}> = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Enter text..."
+            className="block w-full p-2 text-base border-2 border-gray-300 rounded-sm"
           />
         </div>
         <div className="form-control">
-          <label htmlFor="amount">
+          <label htmlFor="amount" className="inline-block my-3">
             Amount <br />
             (negative - expense, positive - income)
           </label>
@@ -50,11 +56,12 @@ const AddTransaction: React.FC<{}> = () => {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount..."
+            className="block w-full p-2 text-base border-2 border-gray-300 rounded-sm"
           />
         </div>
         <button
           type="submit"
-          className="bg-purple-500 shadow-md text-white block text-base mt-2 mx-0 mb-6 p-3 w-full"
+          className="block w-full p-2 mx-0 mt-4 mb-6 text-base text-white bg-purple-500 shadow-md"
         >
           Add transaction
         </button>

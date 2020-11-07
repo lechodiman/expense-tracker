@@ -2,7 +2,7 @@ import React from 'react';
 import { useTransactionsState } from '../context/transactions-context';
 import { sumTotalIncome, sumTotalExpenses } from '../utils/functions';
 
-const IncomeExpenses: React.FC<{}> = () => {
+const IncomeExpenses: React.FC = () => {
   const { transactions } = useTransactionsState();
 
   const totalIncome = sumTotalIncome(transactions);
@@ -10,17 +10,17 @@ const IncomeExpenses: React.FC<{}> = () => {
   const totalExpenses = sumTotalExpenses(transactions);
 
   return (
-    <div className="rounded-md bg-white shadow-md p-5 flex justify-between my-5 mx-0">
+    <div className="flex justify-between p-5 mx-0 my-5 bg-white rounded-md shadow-md">
       <div className="flex-1 text-center border-r">
-        <h4 className="text-xl font-bold">Income</h4>
-        <p aria-label="total income" className="money plus">
+        <h4 className="text-xl font-bold uppercase">Income</h4>
+        <p aria-label="total income" className="text-xl text-green-500">
           {totalIncome}
         </p>
       </div>
 
       <div className="flex-1 text-center">
-        <h4 className="text-xl font-bold">Expense</h4>
-        <p aria-label="total expenses" className="money minus">
+        <h4 className="text-xl font-bold uppercase">Expense</h4>
+        <p aria-label="total expenses" className="text-xl text-red-700">
           {totalExpenses}
         </p>
       </div>
