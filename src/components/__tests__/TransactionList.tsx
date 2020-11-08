@@ -1,10 +1,9 @@
 import {
-  wait,
   fireEvent,
   render,
-  within,
   screen,
-  waitForElementToBeRemoved,
+  wait,
+  within,
 } from '@testing-library/react';
 import React from 'react';
 import * as transactionContext from '../../context/transactions-context';

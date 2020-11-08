@@ -26,16 +26,8 @@
     "eject": "react-scripts eject",
     "build:styles": "postcss src/tailwind.css -o src/styles.css",
     "prebuild": "yarn build:styles",
-    "prestart": "yarn build:styles"
-  },
-  "eslintConfig": {
-    "plugins": [
-      "ramda"
-    ],
-    "extends": [
-      "react-app",
-      "plugin:ramda/recommended"
-    ]
+    "prestart": "yarn build:styles",
+    "lint": "eslint src --ext ts,tsx,js,jsx"
   },
   "browserslist": {
     "production": [
