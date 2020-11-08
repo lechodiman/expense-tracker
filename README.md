@@ -9,7 +9,10 @@ Uses:
 - Typescript
 - Context API
 - Ramda.js
-- React Testing Library
+- React Testing Library (unit and integration testing)
+- React Hook Form
+- Framer Motion
+- Tailwind CSS
 
 To install `yarn`.
 
