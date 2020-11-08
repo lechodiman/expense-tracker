@@ -1,4 +1,4 @@
-import { fireEvent, render, within } from '@testing-library/react';
+import { findByText, fireEvent, render, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
@@ -9,7 +9,7 @@ test('adds a new transaction to the list and it updates balance', async () => {
     amount: '200',
   };
 
-  const { getByText, getByLabelText } = render(<App></App>);
+  const { getByText, getByLabelText, findByText } = render(<App></App>);
 
   const textInput = getByLabelText(/text/i);
   const amountInput = getByLabelText(/amount/i);
@@ -22,7 +22,7 @@ test('adds a new transaction to the list and it updates balance', async () => {
   await userEvent.type(amountInput, fakeTransaction.amount);
   fireEvent.click(submitButton);
 
-  const somethingExpense = getByText(fakeTransaction.name);
+  const somethingExpense = await findByText(fakeTransaction.name);
 
   expect(somethingExpense).toBeInTheDocument();
   expect(totalBalance).toHaveTextContent(fakeTransaction.amount);

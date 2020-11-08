@@ -1,4 +1,11 @@
-import { fireEvent, render, within } from '@testing-library/react';
+import {
+  wait,
+  fireEvent,
+  render,
+  within,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import React from 'react';
 import * as transactionContext from '../../context/transactions-context';
 import { Transaction } from '../../types';
@@ -12,18 +19,20 @@ test('removes deleted transactions', async () => {
     { id: 2, amount: -50, text: 'car' },
   ];
 
-  const { getByText } = render(
+  render(
     <TransactionsProvider transactions={transactions}>
       <TransactionList></TransactionList>
     </TransactionsProvider>
   );
 
-  const income = getByText(/income/);
-  const car = getByText(/car/);
+  const income = screen.getByText(/income/i);
+  const car = screen.getByText(/car/i);
 
   fireEvent.click(within(car).getByText(/x/i));
   fireEvent.click(within(income).getByText(/x/i));
 
-  expect(car).not.toBeInTheDocument();
-  expect(income).not.toBeInTheDocument();
+  await wait(() => {
+    expect(screen.queryByText(/car/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/income/i)).not.toBeInTheDocument();
+  });
 });
