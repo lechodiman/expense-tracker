@@ -2,6 +2,8 @@
 
 This is a project based on [Traversy Media's Expense Tracker](https://www.youtube.com/watch?v=XuFDcZABiDQ), but using Typescript and the Context API in a very different way.
 
+This is the deployed version: [app](https://tracking-expenses.netlify.app/)
+
 The Context API was used following the advice by Kent C Dodds in his [blog post](https://kentcdodds.com/blog/how-to-use-react-context-effectively).
 
 Uses:
@@ -19,3 +21,5 @@ To install `yarn`.
 To run `yarn start`
 
 To run all tests: `yarn run test`
+
+![Demo](images/demo.png)
