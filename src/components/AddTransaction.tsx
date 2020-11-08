@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTransactionsDispatch } from '../context/transactions-context';
 import { Transaction } from '../types';
@@ -10,6 +10,7 @@ type FormData = {
 
 const AddTransaction: React.FC = () => {
   const { register, handleSubmit, reset } = useForm<FormData>();
+  const textInputRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useTransactionsDispatch();
 
@@ -22,11 +23,12 @@ const AddTransaction: React.FC = () => {
 
     dispatch({ type: 'ADD_TRANSACTION', payload: newTransaction });
     reset();
+    textInputRef.current?.focus();
   });
 
   return (
     <>
-      <h3 className="pb-2 mt-10 text-xl font-bold border-b-2 border-gray-300">
+      <h3 className="pb-2 mt-10 text-xl font-bold border-b-2 border-gray-400">
         Add new transaction
       </h3>
 
@@ -39,7 +41,10 @@ const AddTransaction: React.FC = () => {
             type="text"
             id="text"
             name="text"
-            ref={register({ required: true })}
+            ref={(e) => {
+              register(e, { required: true });
+              textInputRef.current = e;
+            }}
             placeholder="New car"
             className="block w-full p-2 text-base border-2 border-gray-300 rounded-sm"
           />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Transaction } from '../types';
 import { useTransactionsDispatch } from '../context/transactions-context';
+import { motion } from 'framer-motion';
 
 interface Props {
   transaction: Transaction;
@@ -16,7 +17,11 @@ const TransactionDetails: React.FC<Props> = ({ transaction }) => {
   const sign = transaction.amount < 0 ? '-' : '+';
 
   return (
-    <li
+    <motion.li
+      key={transaction.id}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className={`bg-white shadow-sm text-blue-900 flex justify-between relative p-3 my-3 border-r-4 ${
         transaction.amount < 0 ? 'border-red-400' : 'border-green-400'
       }`}
@@ -31,7 +36,7 @@ const TransactionDetails: React.FC<Props> = ({ transaction }) => {
       >
         x
       </button>
-    </li>
+    </motion.li>
   );
 };
 
