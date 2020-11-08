@@ -11,7 +11,7 @@
     "plugin:jest/recommended",
     "plugin:jest/style"
   ],
-  "plugins": ["react", "prettier", "react-hooks"],
+  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
