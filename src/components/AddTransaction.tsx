@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useTransactionsDispatch } from '../context/transactions-context';
 import { Transaction } from '../types';
 
+type FormData = {
+  text: string;
+  amount: number;
+};
+
 const AddTransaction: React.FC = () => {
-  const [text, setText] = useState('');
-  const [amount, setAmount] = useState('');
+  const { register, handleSubmit, reset } = useForm<FormData>();
 
   const dispatch = useTransactionsDispatch();
 
-  const onSubmit = (e: React.FormEvent): void => {
-    e.preventDefault();
-
+  const onSubmit = handleSubmit((values) => {
     const newTransaction: Transaction = {
       id: Math.floor(Math.random() * 1000000),
-      text,
-      amount: +amount,
+      text: values.text,
+      amount: values.amount,
     };
 
     dispatch({ type: 'ADD_TRANSACTION', payload: newTransaction });
-    setText('');
-    setAmount('');
-  };
+    reset();
+  });
 
   return (
     <>
@@ -37,9 +39,8 @@ const AddTransaction: React.FC = () => {
             type="text"
             id="text"
             name="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Enter text..."
+            ref={register({ required: true })}
+            placeholder="New car"
             className="block w-full p-2 text-base border-2 border-gray-300 rounded-sm"
           />
         </div>
@@ -53,15 +54,14 @@ const AddTransaction: React.FC = () => {
             type="number"
             name="amount"
             id="amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount..."
+            ref={register({ required: true })}
+            placeholder="-200"
             className="block w-full p-2 text-base border-2 border-gray-300 rounded-sm"
           />
         </div>
         <button
           type="submit"
-          className="block w-full p-2 mx-0 mt-4 mb-6 text-base text-white bg-purple-500 shadow-md"
+          className="block w-full p-2 mx-0 mt-4 mb-6 text-base text-white transition duration-500 ease-in-out transform bg-purple-500 shadow-md hover:-translate-y-1 hover:scale-105"
         >
           Add transaction
         </button>
